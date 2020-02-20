@@ -1,0 +1,2 @@
+dpu-utils==0.2.8
+sentencepiece==0.1.85
