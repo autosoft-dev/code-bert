@@ -28,7 +28,7 @@ def process_code(code_string):
                 lines = tok.split("\n")
                 # n = len(lines) if len(lines) <= 2 else 2  # we do not consider more than 2 lines of docstring
                 for line in lines:
-                    toks = line.split(" ")
+                    toks = line.lstrip().rstrip().split(" ")
                     for t in toks:
                         s.append(t.rstrip().lstrip().lower())
                 if s[-1] != '"""':
