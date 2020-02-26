@@ -30,7 +30,7 @@ def code_search_net_data(args):
     with open(RAW_TRAIN_FILE_NAME, "a") as f:
         for d in train_dirs:
             for x in Path(f"{args.main_path}/{d}").glob("*.jsonl"):
-                print("Processing {x}")
+                print(f"Processing {x}")
                 with open(f"{x}", "r") as fd:
                     code_lines = fd.readlines()
                 for line in code_lines:
