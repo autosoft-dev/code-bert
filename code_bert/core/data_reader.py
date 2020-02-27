@@ -44,28 +44,31 @@ def process_code(code_string):
     prev_tok = ""
 
     if g:
-        for toknum, tokval, _, _, _ in g:
-            if  toknum != ENCODING and toknum != ENDMARKER:
-                tok = spl_tokens.get(toknum) if spl_tokens.get(toknum) else tokval
-                if tok.startswith('"""') and prev_tok == "__INDENT__" and toknum == STRING:
-                    # It is most likely a docstring.
-                    docstr = process_string_tokes(tok)
-                    s.extend(docstr)
-                    prev_tok = tok
-                    continue
-                else:
-                    prev_tok = tok
-                if tok != "__INDENT__" and  tok != "__DEDENT__" and tok != "__NEWLINE__":
-                    toks = split_identifier_into_parts(tok)
-                    if not toks[0].startswith("#"):  # If the line it self is an in-line comment
-                        for t in toks:
-                            if not t.startswith("#"):  # If we have in-line comments after the code (like this one)
-                                s.append(t.rstrip().lstrip().lower())
-                else:
-                    if toknum == STRING:
-                        s.extend(process_string_tokes(tok))
+        try:
+            for toknum, tokval, _, _, _ in g:
+                if  toknum != ENCODING and toknum != ENDMARKER:
+                    tok = spl_tokens.get(toknum) if spl_tokens.get(toknum) else tokval
+                    if tok.startswith('"""') and prev_tok == "__INDENT__" and toknum == STRING:
+                        # It is most likely a docstring.
+                        docstr = process_string_tokes(tok)
+                        s.extend(docstr)
+                        prev_tok = tok
+                        continue
                     else:
-                        s.append(tok.rstrip().lstrip().lower())
-        
-        return " ".join(s)
+                        prev_tok = tok
+                    if tok != "__INDENT__" and  tok != "__DEDENT__" and tok != "__NEWLINE__":
+                        toks = split_identifier_into_parts(tok)
+                        if not toks[0].startswith("#"):  # If the line it self is an in-line comment
+                            for t in toks:
+                                if not t.startswith("#"):  # If we have in-line comments after the code (like this one)
+                                    s.append(t.rstrip().lstrip().lower())
+                    else:
+                        if toknum == STRING:
+                            s.extend(process_string_tokes(tok))
+                        else:
+                            s.append(tok.rstrip().lstrip().lower())
+            
+            return " ".join(s)
+        except Exception:
+            return None
     return None
