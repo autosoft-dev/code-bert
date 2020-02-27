@@ -41,6 +41,8 @@ def code_search_net_data(args):
                         # except Exception:
                         #     total_missed_lines += 1
                         #     pass
+                    else:
+                        total_missed_lines += 1
                 print(f"for {x} total missed lines - {total_missed_lines}")
 
     with open(RAW_VALIDATION_FILE_NAME, "a") as f:
@@ -55,6 +57,8 @@ def code_search_net_data(args):
                         print(to_write.encode('utf-8'), file=f)
                         # except UnicodeEncodeError:
                         #     pass
+                    else:
+                        total_missed_lines += 1
 
 
 def main():
