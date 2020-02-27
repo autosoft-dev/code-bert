@@ -30,7 +30,7 @@ def code_search_net_data(args):
     with open(RAW_TRAIN_FILE_NAME, "a") as f:
         for d in train_dirs:
             for x in Path(f"{args.main_path}/{d}").glob("*.jsonl"):
-                print(f"Processing {x}")
+                total_missed_lines = 0
                 with open(f"{x}", "r") as fd:
                     code_lines = fd.readlines()
                 for line in code_lines:
@@ -39,7 +39,9 @@ def code_search_net_data(args):
                         try:
                             print(to_write, file=f)
                         except UnicodeEncodeError:
+                            total_missed_lines += 1
                             pass
+                print(f"for {x} total missed lines - {total_missed_lines}")
 
     with open(RAW_VALIDATION_FILE_NAME, "a") as f:
         for d in valid_dirs:
