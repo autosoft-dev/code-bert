@@ -36,11 +36,11 @@ def code_search_net_data(args):
                 for line in code_lines:
                     to_write = process_code(json.loads(line)["code"])
                     if to_write:
-                        # try:
-                        print(to_write.encode('utf-8'), file=f)
-                        # except Exception:
-                        #     total_missed_lines += 1
-                        #     pass
+                        try:
+                            print(to_write, file=f)
+                        except UnicodeEncodeError:
+                            total_missed_lines += 1
+                            pass
                     else:
                         total_missed_lines += 1
                 print(f"for {x} total missed lines - {total_missed_lines}")
@@ -53,10 +53,10 @@ def code_search_net_data(args):
                 for line in code_lines:
                     to_write = process_code(json.loads(line)["code"])
                     if to_write:
-                        # try:
-                        print(to_write.encode('utf-8'), file=f)
-                        # except UnicodeEncodeError:
-                        #     pass
+                        try:
+                            print(to_write, file=f)
+                        except UnicodeEncodeError:
+                            pass
                     else:
                         total_missed_lines += 1
 
