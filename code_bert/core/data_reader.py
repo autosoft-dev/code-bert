@@ -9,6 +9,8 @@ spl_tokens = {INDENT: "__INDENT__",
               ENDMARKER: None,
               NEWLINE: "__NEWLINE__"}
 
+def_tok = "def"
+
 
 def _tokenize_code_string(code_string: str):
     try:
@@ -42,21 +44,25 @@ def process_code(code_string):
 
     s = []
     prev_tok = ""
+    def_tok_seen = False  # to deal with nested functions
 
     if g:
         try:
             for toknum, tokval, _, _, _ in g:
                 if  toknum != ENCODING and toknum != ENDMARKER:
                     tok = spl_tokens.get(toknum) if spl_tokens.get(toknum) else tokval
-                    if tok.startswith('"""') and prev_tok == "__INDENT__" and toknum == STRING:
+                    if tok.startswith('"""') and prev_tok == "__INDENT__" and toknum == STRING and def_tok_seen:
                         # It is most likely a docstring.
                         docstr = process_string_tokes(tok)
                         s.extend(docstr)
                         prev_tok = tok
+                        def_tok_seen = False
                         continue
                     else:
                         prev_tok = tok
                     if tok != "__INDENT__" and  tok != "__DEDENT__" and tok != "__NEWLINE__":
+                        if tok == "def":
+                            def_tok_seen = True
                         toks = split_identifier_into_parts(tok)
                         if not toks[0].startswith("#"):  # If the line it self is an in-line comment
                             for t in toks:
