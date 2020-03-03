@@ -51,7 +51,7 @@ def divide_code_in_logical_lines(s):
     substring_arr = []
     for tok in s:
         if tok == spl_tokens[NEWLINE].lower():
-            if len(substring_arr) > 256:
+            if len(substring_arr) > 256:  # For the position embedding later
                 substring_arr = substring_arr[:255]
 
             logical_lines.append(" ".join(substring_arr))
