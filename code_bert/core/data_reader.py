@@ -49,12 +49,28 @@ def process_string_tokes(tok, is_docstr=False):
 def divide_code_in_logical_lines(s):
     logical_lines = []
     substring_arr = []
-    for tok in s:
+    next_token_is_indent = False
+    for idx, tok in enumerate(s):
+        if next_token_is_indent:
+            substring_arr.append(tok)
+            res_str = " ".join(substring_arr)
+            # res_str = res_str.replace('"""', "")
+            res_str = res_str.rstrip().lstrip()
+            logical_lines.append(res_str)
+            substring_arr = []
+            next_token_is_indent = False
+            continue
         if tok == spl_tokens[NEWLINE].lower():
             if len(substring_arr) > 256:  # For the position embedding later
                 substring_arr = substring_arr[:255]
 
-            logical_lines.append(" ".join(substring_arr))
+            if (idx+1) < len(s) and s[idx+1] == spl_tokens[INDENT].lower():
+                next_token_is_indent = True
+                continue
+            res_str = " ".join(substring_arr)
+            # res_str = res_str.replace('"""', "")
+            res_str = res_str.rstrip().lstrip()
+            logical_lines.append(res_str)
             substring_arr = []
         else:
             substring_arr.append(tok)
