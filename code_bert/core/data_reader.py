@@ -20,20 +20,31 @@ def _tokenize_code_string(code_string: str):
 
 
 def process_string_tokes(tok, is_docstr=False):
-    s = []
+    buffer = []
     lines = tok.split("\n")
     if is_docstr:
         n = len(lines) if len(lines) <= 2 else 2  # we do not consider more than 4 lines of docstring
     else:
         n = len(lines)
+    tripple_quote = '"""'
+    # started_with_tripple_quote = False
+
     for line in lines[:n]:
         toks = line.lstrip().rstrip().split(" ")
-        if toks[0].startswith('"""'):
+        # tripple_quote = '"""' if toks[0].startswith('"""') else "'''"
+        if (toks[0].startswith('"""') or toks[0].startswith("'''")) and len(toks) > 1:
+            # started_with_tripple_quote = True
             toks = toks[1:]
-            t = ['"""'] + toks
+            t = [tripple_quote] + toks
             toks = t
-        for t in toks:
-            s.append(t.rstrip().lstrip().lower())
+        # else:
+        #     if (toks[0].startswith('"""') or toks[0].startswith("'''")) and len(toks) == 1:
+        #         started_with_tripple_quote = True
+        for idx, t in enumerate(toks):
+            if idx > 50:
+                break
+            buffer.append(t.rstrip().lstrip().lower())
+
         ####################
         # Not treating the new lines inside STRING type tokens
         # @TODO - Verify this approach
@@ -41,9 +52,12 @@ def process_string_tokes(tok, is_docstr=False):
         # s.append(spl_tokens[NEWLINE].lower())
     # if s[-1] != spl_tokens[NEWLINE]:
     #     s.pop()
-    if s[-1] != '"""':
-        s.append('"""')
-    return s
+    if buffer[0].lstrip().rstrip().startswith('"""') and buffer[-1].lstrip().rstrip() != '"""':
+        buffer.append('"""')
+    elif buffer[0].lstrip().rstrip().startswith("'''") and buffer[-1].lstrip().rstrip() != "'''":
+        buffer.append("'''")
+    
+    return buffer
 
 
 def divide_code_in_logical_lines(s):
@@ -102,7 +116,7 @@ def process_code(code_string):
             for toknum, tokval, _, _, _ in g:
                 if  toknum != ENCODING and toknum != ENDMARKER:
                     tok = spl_tokens.get(toknum) if spl_tokens.get(toknum) else tokval
-                    if tok.startswith('"""') and prev_tok == "__INDENT__" and toknum == STRING and def_tok_seen:
+                    if (tok.startswith('"""') or  tok.startswith("'''")) and prev_tok == "__INDENT__" and toknum == STRING and def_tok_seen:
                         # It is most likely a docstring.
                         docstr = process_string_tokes(tok, is_docstr=True)
                         s.extend(docstr)
@@ -127,6 +141,7 @@ def process_code(code_string):
             
             # return " ".join(s)
             return divide_code_in_logical_lines(s)
-        except Exception:
+        except Exception as e:
+            print(e)
             return None
     return None
