@@ -3,13 +3,25 @@ from io import BytesIO
 
 from dpu_utils.codeutils.identifiersplitting import split_identifier_into_parts
 
+FOREIGN_CHARS = 10000
+
 spl_tokens = {INDENT: "__INDENT__",
               DEDENT: "__DEDENT__",
               ENCODING: None,
               ENDMARKER: None,
-              NEWLINE: "__NEWLINE__"}
+              NEWLINE: "__NEWLINE__",
+              FOREIGN_CHARS: "__FOREIGNCARS__"
+              }
 
 def_tok = "def"
+
+
+def _is_foreign_char(tok):
+    try:
+        tok.encode('ascii')
+        return False
+    except UnicodeEncodeError:
+        return True
 
 
 def _tokenize_code_string(code_string: str):
@@ -66,6 +78,7 @@ def divide_code_in_logical_lines(s):
     next_token_is_indent = False
     for idx, tok in enumerate(s):
         if next_token_is_indent:
+            tok = tok if not _is_foreign_char(tok) else spl_tokens[FOREIGN_CHARS].lower()
             substring_arr.append(tok)
             res_str = " ".join(substring_arr)
             # res_str = res_str.replace('"""', "")
@@ -87,6 +100,7 @@ def divide_code_in_logical_lines(s):
             logical_lines.append(res_str)
             substring_arr = []
         else:
+            tok = tok if not _is_foreign_char(tok) else spl_tokens[FOREIGN_CHARS].lower()
             substring_arr.append(tok)
     
     if substring_arr:
