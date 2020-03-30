@@ -5,12 +5,12 @@ from dpu_utils.codeutils.identifiersplitting import split_identifier_into_parts
 
 FOREIGN_CHARS = 10000
 
-spl_tokens = {INDENT: "__INDENT__",
-              DEDENT: "__DEDENT__",
+spl_tokens = {INDENT: "<indent>",
+              DEDENT: "<dedent>",
               ENCODING: None,
               ENDMARKER: None,
-              NEWLINE: "__NEWLINE__",
-              FOREIGN_CHARS: "__FOREIGNCARS__"
+              NEWLINE: "<newline>",
+              FOREIGN_CHARS: "<foreignchars>"
               }
 
 def_tok = "def"
@@ -130,7 +130,7 @@ def process_code(code_string):
             for toknum, tokval, _, _, _ in g:
                 if  toknum != ENCODING and toknum != ENDMARKER:
                     tok = spl_tokens.get(toknum) if spl_tokens.get(toknum) else tokval
-                    if (tok.startswith('"""') or  tok.startswith("'''")) and prev_tok == "__INDENT__" and toknum == STRING and def_tok_seen:
+                    if (tok.startswith('"""') or  tok.startswith("'''")) and prev_tok == spl_tokens[INDENT] and toknum == STRING and def_tok_seen:
                         # It is most likely a docstring.
                         docstr = process_string_tokes(tok, is_docstr=True)
                         s.extend(docstr)
@@ -139,7 +139,7 @@ def process_code(code_string):
                         continue
                     else:
                         prev_tok = tok
-                    if tok != "__INDENT__" and  tok != "__DEDENT__" and tok != "__NEWLINE__":
+                    if tok != spl_tokens[INDENT] and  tok != spl_tokens[DEDENT] and tok != spl_tokens[NEWLINE]:
                         if toknum == STRING:
                             s.extend(process_string_tokes(tok))
                             continue
