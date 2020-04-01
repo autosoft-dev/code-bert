@@ -88,8 +88,8 @@ def divide_code_in_logical_lines(s):
             next_token_is_indent = False
             continue
         if tok == spl_tokens[NEWLINE].lower():
-            if len(substring_arr) > 50:  # For the position embedding later
-                substring_arr = substring_arr[:50]
+            if len(substring_arr) > 128:  # For the position embedding later
+                substring_arr = substring_arr[:128]
 
             if (idx+1) < len(s) and s[idx+1] == spl_tokens[INDENT].lower():
                 next_token_is_indent = True
