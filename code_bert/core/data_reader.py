@@ -80,6 +80,8 @@ def divide_code_in_logical_lines(s):
         if next_token_is_indent:
             tok = tok if not _is_foreign_char(tok) else spl_tokens[FOREIGN_CHARS].lower()
             substring_arr.append(tok)
+            if len(" ".join(substring_arr).split()) > 128:
+                substring_arr = substring_arr[:128]
             res_str = " ".join(substring_arr)
             # res_str = res_str.replace('"""', "")
             res_str = res_str.rstrip().lstrip()
@@ -94,6 +96,8 @@ def divide_code_in_logical_lines(s):
             if (idx+1) < len(s) and s[idx+1] == spl_tokens[INDENT].lower():
                 next_token_is_indent = True
                 continue
+            if len(" ".join(substring_arr).split()) > 128:
+                substring_arr = substring_arr[:128]
             res_str = " ".join(substring_arr)
             # res_str = res_str.replace('"""', "")
             res_str = res_str.rstrip().lstrip()
@@ -108,7 +112,10 @@ def divide_code_in_logical_lines(s):
         for t in substring_arr:
             if t != spl_tokens[DEDENT].lower():
                 all_dedents = False
-
+        print(substring_arr)
+        print(len(" ".join(substring_arr).split()))
+        if len(" ".join(substring_arr).split()) > 128:
+                substring_arr = substring_arr[:128]
         last_part = " ".join(substring_arr)
         if all_dedents:
             logical_lines[-1] = logical_lines[-1] + " " + last_part
