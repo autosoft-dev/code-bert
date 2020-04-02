@@ -97,7 +97,7 @@ def generate_train_command(args):
                 eval_file = "small_eval.txt"
     r = run("rm -rf codeBERT-small-v1 runs")
     cmd ="""
-        CUDA_LAUNCH_BLOCKING=1 python nohup run_language_modeling.py
+        CUDA_LAUNCH_BLOCKING=1 nohup python run_language_modeling.py
         --train_data_file {}
         --eval_data_file {}
         --output_dir ./codeBERT-small-v1
