@@ -5,12 +5,12 @@ from dpu_utils.codeutils.identifiersplitting import split_identifier_into_parts
 
 FOREIGN_CHARS = 10000
 
-spl_tokens = {INDENT: "<indent>",
-              DEDENT: "<dedent>",
+spl_tokens = {INDENT: "indent",
+              DEDENT: "dedent",
               ENCODING: None,
               ENDMARKER: None,
               NEWLINE: "<newline>",
-              FOREIGN_CHARS: "<foreignchars>"
+              FOREIGN_CHARS: "foreignchars"
               }
 
 def_tok = "def"
@@ -64,11 +64,21 @@ def process_string_tokes(tok, is_docstr=False):
         # s.append(spl_tokens[NEWLINE].lower())
     # if s[-1] != spl_tokens[NEWLINE]:
     #     s.pop()
+    
+    if len(buffer) > 128:
+        buffer = buffer[:128]
+    if len(" ".join(buffer)) > 200:
+        buffer = (" ".join(buffer))[:200].split()
+    
     if buffer[0].lstrip().rstrip().startswith('"""') and buffer[-1].lstrip().rstrip() != '"""':
         buffer.append('"""')
     elif buffer[0].lstrip().rstrip().startswith("'''") and buffer[-1].lstrip().rstrip() != "'''":
         buffer.append("'''")
-    
+    elif buffer[0].lstrip().rstrip().startswith('b"""') and buffer[-1].lstrip().rstrip() != '"""':
+        buffer.append('"""')
+    elif buffer[0].lstrip().rstrip().startswith("b'''") and buffer[-1].lstrip().rstrip() != "'''":
+        buffer.append("'''")
+
     return buffer
 
 
@@ -112,15 +122,13 @@ def divide_code_in_logical_lines(s):
         for t in substring_arr:
             if t != spl_tokens[DEDENT].lower():
                 all_dedents = False
-        print(substring_arr)
-        print(len(" ".join(substring_arr).split()))
         if len(" ".join(substring_arr).split()) > 128:
                 substring_arr = substring_arr[:128]
         last_part = " ".join(substring_arr)
         if all_dedents:
             logical_lines[-1] = logical_lines[-1] + " " + last_part
         else:
-            logical_lines.append(last_part)
+            logical_lines.append(last_part.lstrip().rstrip())
     
     return logical_lines
 
