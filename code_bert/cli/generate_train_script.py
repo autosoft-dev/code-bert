@@ -41,10 +41,10 @@ def _create_train_files_and_regenerate_vocab():
                 "</s>",
                 "<unk>",
                 "<mask>",
-                "<indent>",
-                "<dedent>",
+                "indent",
+                "dedent",
                 "<newline>",
-                "<foreignchars>"
+                "foreignchars"
             ])
             try:
                 shutil.rmtree("codeBERT")
