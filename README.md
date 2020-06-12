@@ -7,7 +7,7 @@ However, this small python module serves as the pre-tokenization step needed for
 
 
 ```
-from code_bert.core.data_reader
+from code_bert.core.data_reader import process_code
 
 with open("test_files/test_code_get.py") as f:
     code = f.read()
