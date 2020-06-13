@@ -1,0 +1,2 @@
+class LimitIsMoreThanLengthError(Exception):
+    pass
