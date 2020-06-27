@@ -1,5 +1,5 @@
-dpu-utils==0.2.8
-sentencepiece==0.1.85
+dpu-utils
+sentencepiece
 # tokenizers==0.5.2
 # # transformers==2.5.1
-invoke==1.4.1
+invoke
