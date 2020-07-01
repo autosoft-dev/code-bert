@@ -8,7 +8,8 @@ version=__version__,
 packages=['code_bert',],
 entry_points = {
     'console_scripts': ['create_training_data=code_bert.cli.training_data_prep:main',
-                        'generate_train_command=code_bert.cli.generate_train_script:main'],
+                        'generate_train_command=code_bert.cli.generate_train_script:main',
+                        'download_model=code_bert.cli.download_model:main'],
 },
 license='Creative Commons Attribution-Noncommercial-Share Alike license',
 )

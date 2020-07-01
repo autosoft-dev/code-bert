@@ -1,5 +1,7 @@
 dpu-utils
 sentencepiece
 # tokenizers==0.5.2
-# # transformers==2.5.1
+transformers
 invoke
+tqdm
+tree-hugger

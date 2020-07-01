@@ -134,3 +134,5 @@ dmypy.json
 # Temporary data dirs
 
 .data/
+
+model/
