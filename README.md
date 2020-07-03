@@ -39,6 +39,8 @@ Ideall then we need some model to run the following Pseudocode
 match, confidence = model(function, docstring)
 ```
 
+And ideally, in this case, the match should be `False`
+
 ## code-bert CLI
 
 **The entire code base is built and abvailble for Python3.6+**
@@ -87,12 +89,10 @@ It should produce a report like the following -
  ======== Analysing test_files/test_code_add.py =========
 
 
-def add ( a , b ) : indent return a + b dedent
 Function "add" with Dcostring """sums two numbers and returns the result"""
 Do they match?
 Yes
 ******************************************************************
-def return all even ( lst ) : indent if not lst : indent return none dedent return [ a for a in lst if a % 2 == 0 ] dedent
 Function "return_all_even" with Dcostring """numbers that are not really odd"""
 Do they match?
 Yes
@@ -101,7 +101,6 @@ Yes
  ======== Analysing test_files/inner_dir/test_code_get.py =========
 
 
-def get file ( filename ) : indent if not path ( filename ) . is file ( ) : indent return none dedent return open ( filename , "rb" ) dedent
 Function "get_file" with Dcostring """opens a url"""
 Do they match?
 No
