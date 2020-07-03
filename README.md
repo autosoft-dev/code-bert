@@ -1,5 +1,7 @@
 # code-bert
 
+**code-bert present version is available for Linux and Mac only. We are working on the Windows release. Please hang on**
+
 This is [CodistAI](https://codist-ai.com/) open source version to easily use the fine tuned model based on our open source MLM code model [codeBERT-small-v2](https://huggingface.co/codistai/codeBERT-small-v2)
 
 [codeBERT-small-v2](https://huggingface.co/codistai/codeBERT-small-v2) is a RoBERTa model, trained using Hugging Face Transformer library and then we have fine tuned the model on the task of predicting the following - 
