@@ -5,12 +5,45 @@ codeBERT is a package to **automatically review you code documentation**. codeBE
 *code-bert present version is available for Linux and Mac only. We are working on the Windows release. Please hang on*
 
 
-🔨 Given a function body `f` as a string of code tokens (including special tokens such as `indent` and `dedent`) and a doc string `d` as a string of Natual Language tokens. Predict whether `f` and `d` are assciated or not (meaning, whether they represent the same concept or not)
-
 This is [CodistAI](https://codist-ai.com/) open source version to easily use the fine tuned model based on our open source MLM code model [codeBERT-small-v2](https://huggingface.co/codistai/codeBERT-small-v2)
 
 [codeBERT-small-v2](https://huggingface.co/codistai/codeBERT-small-v2) is a RoBERTa model, trained using Hugging Face Transformer library and then we have fine tuned the model on the task of predicting the following - 
 
+
+## 🏆 code-bert output
+
+Given a function body `f` as a string of code tokens (including special tokens such as `indent` and `dedent`) and a doc string `d` as a string of Natual Language tokens. Predict whether `f` and `d` are assciated or not (meaning, whether they represent the same concept or not)
+
+
+ It will produce a report like the following - 
+
+`run_pipeline  -r test_files`
+
+```
+ ======== Analysing test_files/test_code_add.py =========
+
+Function "add" with Docstring """sums two numbers and returns the result"""
+Do they match?
+Yes
+```
+
+``` 
+======== Analysing test_files/test_code_add.py =========
+
+Function "return_all_even" with Docstring """numbers that are not really odd"""
+Do they match?
+Yes
+
+```
+
+```
+ ======== Analysing test_files/inner_dir/test_code_get.py =========
+
+Function "get_file" with Docstring """opens a url"""
+Do they match?
+No
+
+```
 
 
 ## An example
