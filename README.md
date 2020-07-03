@@ -2,11 +2,15 @@
 
 **code-bert present version is available for Linux and Mac only. We are working on the Windows release. Please hang on**
 
+codeBERT is a package to **automatically review you code documentation**. codeBERT currently works for Python code. 
+
+🔨 Given a function body `f` as a string of code tokens (including special tokens such as `indent` and `dedent`) and a doc string `d` as a string of Natual Language tokens. Predict whether `f` and `d` are assciated or not (meaning, whether they represent the same concept or not)
+
 This is [CodistAI](https://codist-ai.com/) open source version to easily use the fine tuned model based on our open source MLM code model [codeBERT-small-v2](https://huggingface.co/codistai/codeBERT-small-v2)
 
 [codeBERT-small-v2](https://huggingface.co/codistai/codeBERT-small-v2) is a RoBERTa model, trained using Hugging Face Transformer library and then we have fine tuned the model on the task of predicting the following - 
 
-Given a function body `f` as a string of code tokens (including special tokens such as `indent` and `dedent`) and a doc string `d` as a string of Natual Language tokens. Predict whether `f` and `d` are assciated or not (meaning, whether they represent the same concept or not)
+
 
 ## An example
 
@@ -25,7 +29,7 @@ def get_file(filename):
 
 ```
 
-Using our another open source library [tree-hugger](https://github.com/autosoft-dev/tree-hugger) it is fairly trivial to get the code and separate out the function body and the docstring with a single API call. 
+💡 Using our another open source library [tree-hugger](https://github.com/autosoft-dev/tree-hugger) it is fairly trivial to get the code and separate out the function body and the docstring with a single API call. 
 
 We can use then, the [`process_code`](https://github.com/autosoft-dev/code-bert/blob/2dd35f16fa2cdb96f75e21bb0a9393aa3164d885/code_bert/core/data_reader.py#L136) method from this prsent repo to process the code lines in the proper format as [codeBERT-small-v2](https://huggingface.co/codistai/codeBERT-small-v2) would want.
 
@@ -84,7 +88,7 @@ So, let's say you have a directory called `test_files` with some python files in
 
 A prompt will appear to confirm the model location. Once you confirm that then the algorithm will take one file at a time and analyze that, recursively on the whole directory. 
 
-It should produce a report like the following - 
+🏆 It should produce a report like the following - 
 
 
 ```
@@ -108,3 +112,5 @@ Do they match?
 No
 ******************************************************************
 ```
+
+Stay tuned! 
