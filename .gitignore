@@ -3,8 +3,6 @@ __pycache__/
 *.py[cod]
 *$py.class
 
-# C extensions
-*.so
 
 # Distribution / packaging
 .Python
@@ -136,3 +134,5 @@ dmypy.json
 .data/
 
 model/
+
+.python-version.th

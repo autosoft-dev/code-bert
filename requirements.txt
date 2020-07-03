@@ -5,3 +5,5 @@ transformers
 invoke
 tqdm
 tree-hugger
+torch
+numpy
