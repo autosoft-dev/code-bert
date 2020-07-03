@@ -1,8 +1,8 @@
 # code-bert
 
-**code-bert present version is available for Linux and Mac only. We are working on the Windows release. Please hang on**
-
 codeBERT is a package to **automatically review you code documentation**. codeBERT currently works for Python code. 
+
+*code-bert present version is available for Linux and Mac only. We are working on the Windows release. Please hang on*
 
 🔨 Given a function body `f` as a string of code tokens (including special tokens such as `indent` and `dedent`) and a doc string `d` as a string of Natual Language tokens. Predict whether `f` and `d` are assciated or not (meaning, whether they represent the same concept or not)
 
