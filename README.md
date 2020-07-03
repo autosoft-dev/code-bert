@@ -1,6 +1,6 @@
 # code-bert
 
-codeBERT is a package to **automatically review you code documentation**. codeBERT currently works for Python code. 
+codeBERT is a package to **automatically check if your code documentation is up-to-date**. codeBERT currently works for Python code. 
 
 *code-bert present version is available for Linux and Mac only. We are working on the Windows release. Please hang on*
 
