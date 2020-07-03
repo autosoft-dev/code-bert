@@ -35,7 +35,7 @@ Doing the above two steps properly would produce something like the following
 
 - **Doc String** - `opens a url`
 
-Ideall then we need some model to run the following Pseudocode
+Ideally then we need some model to run the following Pseudocode
 
 ```python
 match, confidence = model(function, docstring)
