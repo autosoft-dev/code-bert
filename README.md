@@ -1,9 +1,3 @@
-Platform | CI Status
----------|:---------
-OSX      | [![OSX Build Status](http://badges.herokuapp.com/travis/ianfixes/arduino_ci?env=BADGE=osx&label=build&branch=master)](https://travis-ci.org/ianfixes/arduino_ci)
-Linux    | [![Linux Build Status](http://badges.herokuapp.com/travis/ianfixes/arduino_ci?env=BADGE=linux&label=build&branch=master)](https://travis-ci.org/ianfixes/arduino_ci)
-Windows  | [![Windows Build status](https://ci.appveyor.com/api/projects/status/8f6e39dea319m83q?svg=false)](https://ci.appveyor.com/project/ianfixes/arduino-ci)
-
 # code-bert
 
 codeBERT is a package to **automatically check if your code documentation is up-to-date**. codeBERT currently works for Python code. 
