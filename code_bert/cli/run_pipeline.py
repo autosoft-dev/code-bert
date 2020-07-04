@@ -23,7 +23,7 @@ def _run_model(file_path, file_parser, predictor):
     for func_name, func_body, docstr in file_parser.parse_file_and_get_data(file_path):
         match, _ = predictor.predict(func_body, docstr)
         match_yes = "Yes" if bool(match) == True else "No"
-        print(f'Function "{func_name}" with Dcostring """{docstr}"""\nDo they match?\n{match_yes}')
+        print(f'>>> Function "{func_name}" with Dcostring """{docstr}"""\n>>> Do they match?\n{match_yes}')
         print("******************************************************************")
 
 
