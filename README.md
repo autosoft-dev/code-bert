@@ -26,16 +26,17 @@ Given a function body `f` as a string of code tokens (including special tokens s
 ```
  ======== Analysing test_files/test_code_add.py =========
 
-Function "add" with Docstring """sums two numbers and returns the result"""
-Do they match?
+
+>>> Function "add" with Dcostring """sums two numbers and returns the result"""
+>>> Do they match?
 Yes
 ```
 
 ``` 
 ======== Analysing test_files/test_code_add.py =========
 
-Function "return_all_even" with Docstring """numbers that are not really odd"""
-Do they match?
+>>> Function "return_all_even" with Dcostring """numbers that are not really odd"""
+>>> Do they match?
 Yes
 
 ```
@@ -43,8 +44,8 @@ Yes
 ```
  ======== Analysing test_files/inner_dir/test_code_get.py =========
 
-Function "get_file" with Docstring """opens a url"""
-Do they match?
+>>> Function "get_file" with Dcostring """opens a url"""
+>>> Do they match?
 No
 
 ```
@@ -133,20 +134,20 @@ A prompt will appear to confirm the model location. Once you confirm that then t
  ======== Analysing test_files/test_code_add.py =========
 
 
-Function "add" with Dcostring """sums two numbers and returns the result"""
-Do they match?
+>>> Function "add" with Dcostring """sums two numbers and returns the result"""
+>>> Do they match?
 Yes
 ******************************************************************
-Function "return_all_even" with Dcostring """numbers that are not really odd"""
-Do they match?
+>>> Function "return_all_even" with Dcostring """numbers that are not really odd"""
+>>> Do they match?
 Yes
 ******************************************************************
 
  ======== Analysing test_files/inner_dir/test_code_get.py =========
 
 
-Function "get_file" with Dcostring """opens a url"""
-Do they match?
+>>> Function "get_file" with Dcostring """opens a url"""
+>>> Do they match?
 No
 ******************************************************************
 ```
