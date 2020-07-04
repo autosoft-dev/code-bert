@@ -93,7 +93,7 @@ We have provided very easy to use CLI commands to achieve all these, and at scal
 
 **We strongly recommend using a virtual environment for the followinsg steps** 
 
-1. First clone this repo - `git clone https://github.com/autosoft-dev/code-bert.git`
+1. First clone this repo - `git clone https://github.com/autosoft-dev/code-bert.git && cd code-bert`
 
 2. (Assuming you have the virtualenv activated) Then do `pip install -r requirements.txt`
 
