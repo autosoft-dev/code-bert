@@ -1,5 +1,7 @@
 [![Python 3.6](https://img.shields.io/badge/python-3.6-blue.svg)](https://www.python.org/downloads/release/python-360/)
-
+![](build_badges/macpass.svg)
+![](build_badges/linuxpass.svg)
+![](build_badges/windowsfail.svg)
 # code-bert
 
 codeBERT is a package to **automatically check if your code documentation is up-to-date**. codeBERT currently works for Python code. 
