@@ -55,8 +55,8 @@ def run_pipeline(args):
                 if is_python_file(file_path):
                     _run_model(file_path, fp, predictor)     
         else:
-            if is_python_file(file_path):
-                _run_model(file_path, fp, predictor)
+            if is_python_file(args.file_name):
+                _run_model(args.file_name, fp, predictor)
     else:
         print("Bye Bye!")
 
