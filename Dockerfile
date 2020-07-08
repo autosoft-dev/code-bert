@@ -34,3 +34,5 @@ COPY Model /usr/src/app/Model/
 COPY setup.py /usr/src/app/
 
 RUN pip install -e .
+
+ENTRYPOINT ["/usr/src/app/entrypoint.sh"]

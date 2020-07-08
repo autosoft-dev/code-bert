@@ -35,7 +35,8 @@ def run_pipeline(args):
     if not Path("Model").exists() or not Path("Model").is_dir():
         raise Exception("\n\nEither the Model directory does not exist or it is invalid")
 
-    choice = query_yes_no("We believe that the model is at 'Model' directory. Shall we continue?")
+    # choice = query_yes_no("We believe that the model is at 'Model' directory. Shall we continue?")
+    choice = True
 
     if choice:
         print("Loading model")
