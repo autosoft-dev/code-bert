@@ -34,6 +34,8 @@ COPY --from=builder /usr/src/app/requirements.txt .
 RUN pip install --upgrade pip
 RUN pip install --no-cache /wheels/*
 
+WORKDIR /usr/src/app
+
 COPY code_bert  /usr/src/app/code_bert/
 COPY libs /usr/src/app/libs/
 COPY queries /usr/src/app/queries/
