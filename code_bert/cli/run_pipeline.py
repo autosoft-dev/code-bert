@@ -18,10 +18,12 @@ def _my_os():
     return platform.system()
 
 
-def _run_model(file_path, file_parser, predictor):
+def _run_model(file_path, file_parser, predictor, show_only_mismatch=True):
     print(f"\n ======== Analysing {file_path} =========\n\n")
     for func_name, func_body, docstr in file_parser.parse_file_and_get_data(file_path):
         match, _ = predictor.predict(func_body, docstr)
+        if match and show_only_mismatch:
+            continue
         match_yes = "Yes" if bool(match) == True else "No"
         print(f'>>> Function "{func_name}" with Dcostring """{docstr}"""\n>>> Do they match?\n{match_yes}')
         print("******************************************************************")
@@ -54,10 +56,10 @@ def run_pipeline(args):
         if args.recursive:
             for file_path in iter_dir(args.recursive):
                 if is_python_file(file_path):
-                    _run_model(file_path, fp, predictor)     
+                    _run_model(file_path, fp, predictor, args.filter_match)
         else:
             if is_python_file(args.file_name):
-                _run_model(args.file_name, fp, predictor)
+                _run_model(args.file_name, fp, predictor, args.filter_match)
     else:
         print("Bye Bye!")
 
@@ -67,6 +69,7 @@ def main():
     parser = ArgumentParser()
     parser.add_argument("-f", "--file_name", type=str, required=False, help="The name of the file you want to run the pipeline on")
     parser.add_argument("-r", "--recursive", required=False, help="Put the directory if you want to run recursively")
+    parser.add_argument("-m", "--filter_match", action="store_false", help="Shall we only show the mis matches?")
 
     args = parser.parse_args()
     run_pipeline(args)
