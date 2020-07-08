@@ -56,10 +56,10 @@ def run_pipeline(args):
         if args.recursive:
             for file_path in iter_dir(args.recursive):
                 if is_python_file(file_path):
-                    _run_model(file_path, fp, predictor, args.filter_match)
+                    _run_model(file_path, fp, predictor, args.show_match)
         else:
             if is_python_file(args.file_name):
-                _run_model(args.file_name, fp, predictor, args.filter_match)
+                _run_model(args.file_name, fp, predictor, args.show_match)
     else:
         print("Bye Bye!")
 
@@ -69,7 +69,7 @@ def main():
     parser = ArgumentParser()
     parser.add_argument("-f", "--file_name", type=str, required=False, help="The name of the file you want to run the pipeline on")
     parser.add_argument("-r", "--recursive", required=False, help="Put the directory if you want to run recursively")
-    parser.add_argument("-m", "--filter_match", action="store_false", help="Shall we only show the mis matches?")
+    parser.add_argument("-m", "--show_match", action="store_false", help="Shall we only show the mis matches?")
 
     args = parser.parse_args()
     run_pipeline(args)
