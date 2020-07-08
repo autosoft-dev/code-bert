@@ -1,4 +1,4 @@
-FROM python:3.6-slim-buster
+FROM python:3.6-slim-buster as builder
 
 RUN apt-get update && apt-get install -y \
   xz-utils \
@@ -25,7 +25,14 @@ WORKDIR /usr/src/app
 
 RUN pip install --upgrade pip
 COPY ./requirements.txt /usr/src/app/requirements.txt
-RUN pip install -r requirements.txt
+RUN pip wheel --no-cache-dir --no-deps --wheel-dir /usr/src/app/wheels -r requirements.txt
+
+FROM python:3.6-slim-buster
+
+COPY --from=builder /usr/src/app/wheels /wheels
+COPY --from=builder /usr/src/app/requirements.txt .
+RUN pip install --upgrade pip
+RUN pip install --no-cache /wheels/*
 
 COPY code_bert  /usr/src/app/code_bert/
 COPY libs /usr/src/app/libs/
