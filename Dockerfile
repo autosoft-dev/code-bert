@@ -28,9 +28,9 @@ COPY ./requirements.txt /usr/src/app/requirements.txt
 RUN pip install -r requirements.txt
 
 COPY code_bert  /usr/src/app/code_bert/
-COPY libs /usr/src/app/
-COPY queries /usr/src/app/
-COPY Model /usr/src/app/
+COPY libs /usr/src/app/libs/
+COPY queries /usr/src/app/queries/
+COPY Model /usr/src/app/Model/
 COPY setup.py /usr/src/app/
 
 RUN pip install -e .
