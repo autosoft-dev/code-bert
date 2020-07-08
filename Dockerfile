@@ -27,7 +27,7 @@ RUN pip install --upgrade pip
 COPY ./requirements.txt /usr/src/app/requirements.txt
 RUN pip install -r requirements.txt
 
-COPY code_bert  /usr/src/app/
+COPY code_bert  /usr/src/app/code_bert/
 COPY libs /usr/src/app/
 COPY queries /usr/src/app/
 COPY Model /usr/src/app/
