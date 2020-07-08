@@ -24,24 +24,6 @@ Given a function body `f` as a string of code tokens (including special tokens s
 `run_pipeline  -r test_files`
 
 ```
- ======== Analysing test_files/test_code_add.py =========
-
-
->>> Function "add" with Dcostring """sums two numbers and returns the result"""
->>> Do they match?
-Yes
-```
-
-``` 
-======== Analysing test_files/test_code_add.py =========
-
->>> Function "return_all_even" with Dcostring """numbers that are not really odd"""
->>> Do they match?
-Yes
-
-```
-
-```
  ======== Analysing test_files/inner_dir/test_code_get.py =========
 
 >>> Function "get_file" with Dcostring """opens a url"""
@@ -111,7 +93,7 @@ We have provided very easy to use CLI commands to achieve all these, and at scal
 Assuming that model is downloaded and ready, you can run the following command to analyze one file or a directory containing a bunch of files
 
 ```
-usage: run_pipeline [-h] [-f FILE_NAME] [-r RECURSIVE]
+usage: run_pipeline [-h] [-f FILE_NAME] [-r RECURSIVE] [-m]
 
 optional arguments:
   -h, --help            show this help message and exit
@@ -119,6 +101,7 @@ optional arguments:
                         The name of the file you want to run the pipeline on
   -r RECURSIVE, --recursive RECURSIVE
                         Put the directory if you want to run recursively
+  -m, --show_match      Shall we show the matches? (Default false)
 ```
 
 So, let's say you have a directory called `test_files` with some python files in it. This is how you can analyze them
@@ -129,6 +112,19 @@ A prompt will appear to confirm the model location. Once you confirm that then t
 
 🏆 It should produce a report like the following - 
 
+
+```
+ ======== Analysing test_files/test_code_add.py =========
+
+
+ ======== Analysing test_files/inner_dir/test_code_get.py =========
+>>> Function "get_file" with Dcostring """opens a url"""
+>>> Do they match?
+No
+******************************************************************
+```
+
+You can optionally pass the `--show_match` flag like so `run_pipeline -r test_files --show_match` and then it will also show you the function docstring pairs where they match. By default it will only show you the mis-matches. So, with this flag set the report will look like this
 
 ```
  ======== Analysing test_files/test_code_add.py =========
@@ -151,5 +147,15 @@ Yes
 No
 ******************************************************************
 ```
+
+## code-bert Docker
+
+It has been request by our users and here it is! You will not need to go through any painful setup process at all. We have Dockerized the entire thing for you. Here are the steps to use it. 
+
+- Pull the image `docker pull codistai/codebert`
+
+- Assuming that you have a bunch of files to be analyzed under `test_files` in your present working directory, run this command - `docker run -v "$(pwd)"/test_files:/usr/src/app/test_files -it codistai/codebert run_pipeline -r test_files`
+
+- If you wish to analyze any other directory, simply change the mounting option in the `docker run` command (the path after `-v` the format should be `full/local/path:/usr/src/app/<mount_dir_name>`) and also mention the same `<mount_dir_name>` after the `run_pipeline` command.
 
 Stay tuned! 

@@ -69,7 +69,7 @@ def main():
     parser = ArgumentParser()
     parser.add_argument("-f", "--file_name", type=str, required=False, help="The name of the file you want to run the pipeline on")
     parser.add_argument("-r", "--recursive", required=False, help="Put the directory if you want to run recursively")
-    parser.add_argument("-m", "--show_match", action="store_false", help="Shall we only show the mis matches?")
+    parser.add_argument("-m", "--show_match", action="store_false", help="Shall we show the matches? (Default false)")
 
     args = parser.parse_args()
     run_pipeline(args)
