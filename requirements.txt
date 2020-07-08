@@ -4,6 +4,7 @@ sentencepiece
 transformers
 invoke
 tqdm
-tree-hugger
 torch
 numpy
+tree-sitter
+tree-hugger
