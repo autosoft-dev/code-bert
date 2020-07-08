@@ -32,6 +32,7 @@ COPY libs /usr/src/app/libs/
 COPY queries /usr/src/app/queries/
 COPY Model /usr/src/app/Model/
 COPY setup.py /usr/src/app/
+COPY entrypoint.sh /usr/src/app/entrypoint.sh
 
 RUN pip install -e .
 
