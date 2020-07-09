@@ -6,7 +6,7 @@
 
 codeBERT is a package to **automatically check if your code documentation is up-to-date**. codeBERT currently works for Python code. 
 
-*code-bert present version is available for Linux and Mac only. We are working on the Windows release. Please hang on*
+*If you are using the source distribution the present version is available for Linux and Mac only. We are working on the Windows release. Please hang on*
 
 
 This is [CodistAI](https://codist-ai.com/) open source version to easily use the fine tuned model based on our open source MLM code model [codeBERT-small-v2](https://huggingface.co/codistai/codeBERT-small-v2)
@@ -16,12 +16,9 @@ This is [CodistAI](https://codist-ai.com/) open source version to easily use the
 
 ## 🏆 code-bert output
 
-Given a function body `f` as a string of code tokens (including special tokens such as `indent` and `dedent`) and a doc string `d` as a string of Natual Language tokens. Predict whether `f` and `d` are assciated or not (meaning, whether they represent the same concept or not)
+Given a function `f` and a doc string `d` a code-bert predicts whether `f` and `d` are matching or not (meaning, whether they represent the same concept or not)
 
-
- It will produce a report like the following - 
-
-`run_pipeline  -r test_files`
+A report lists out all the functions where docsting does not matchn as follow:
 
 ```
  ======== Analysing test_files/inner_dir/test_code_get.py =========
@@ -33,42 +30,7 @@ No
 ```
 
 
-## An example
-
-Let's consider the following code
-
-```python
-from pathlib import Path
-
-def get_file(filename):
-    """
-    opens a url
-    """
-    if not Path(filename).is_file():
-        return None
-    return open(filename, "rb")
-
-```
-
-💡 Using our another open source library [tree-hugger](https://github.com/autosoft-dev/tree-hugger) it is fairly trivial to get the code and separate out the function body and the docstring with a single API call. 
-
-We can use then, the [`process_code`](https://github.com/autosoft-dev/code-bert/blob/2dd35f16fa2cdb96f75e21bb0a9393aa3164d885/code_bert/core/data_reader.py#L136) method from this prsent repo to process the code lines in the proper format as [codeBERT-small-v2](https://huggingface.co/codistai/codeBERT-small-v2) would want.
-
-Doing the above two steps properly would produce something like the following
-
-- **Function** - `def get file ( filename ) : indent if not path ( filename ) . is file ( ) : indent return none dedent return open ( filename , "rb" ) dedent`
-
-- **Doc String** - `opens a url`
-
-Ideally then we need some model to run the following Pseudocode
-
-```python
-match, confidence = model(function, docstring)
-```
-
-And ideally, in this case, the match should be `False`
-
-## code-bert CLI
+## code-bert local setup 
 
 **The entire code base is built and abvailble for Python3.6+**
 
@@ -90,7 +52,7 @@ We have provided very easy to use CLI commands to achieve all these, and at scal
 
 -----------
 
-Assuming that model is downloaded and ready, you can run the following command to analyze one file or a directory containing a bunch of files
+You can run the following command to analyze one file or a directory containing a bunch of files
 
 ```
 usage: run_pipeline [-h] [-f FILE_NAME] [-r RECURSIVE] [-m]
@@ -104,14 +66,25 @@ optional arguments:
   -m, --show_match      Shall we show the matches? (Default false)
 ```
 
-So, let's say you have a directory called `test_files` with some python files in it. This is how you can analyze them
+## code-bert Docker
+
+It has been request by our users and here it is! You will not need to go through any painful setup process at all. We have Dockerized the entire thing for you. Here are the steps to use it. 
+
+- Pull the image `docker pull codistai/codebert`
+
+- Assuming that you have a bunch of files to be analyzed under `test_files` in your present working directory, run this command - `docker run -v "$(pwd)"/test_files:/usr/src/app/test_files -it codistai/codebert run_pipeline -r test_files`
+
+- If you wish to analyze any other directory, simply change the mounting option in the `docker run` command (the path after `-v` the format should be `full/local/path:/usr/src/app/<mount_dir_name>`) and also mention the same `<mount_dir_name>` after the `run_pipeline` command.
+
+
+
+## 🎮 code-bert example
+
+SLet's say you have a directory called `test_files` with some python files in it. Here is how to run the analysis: 
 
 `run_pipeline  -r test_files`
 
-A prompt will appear to confirm the model location. Once you confirm that then the algorithm will take one file at a time and analyze that, recursively on the whole directory. 
-
-🏆 It should produce a report like the following - 
-
+The algorithm will take one file at a time to analyze recursively on the whole directory and prompt out a report of not matching function-docstring pairs.
 
 ```
  ======== Analysing test_files/test_code_add.py =========
@@ -124,7 +97,8 @@ No
 ******************************************************************
 ```
 
-You can optionally pass the `--show_match` flag like so `run_pipeline -r test_files --show_match` and then it will also show you the function docstring pairs where they match. By default it will only show you the mis-matches. So, with this flag set the report will look like this
+
+You can optionally pass the `--show_match` flag like so `run_pipeline -r test_files --show_match` to prompt out both match and mismatching function-docstring pairs.
 
 ```
  ======== Analysing test_files/test_code_add.py =========
@@ -148,14 +122,34 @@ No
 ******************************************************************
 ```
 
-## code-bert Docker
 
-It has been request by our users and here it is! You will not need to go through any painful setup process at all. We have Dockerized the entire thing for you. Here are the steps to use it. 
 
-- Pull the image `docker pull codistai/codebert`
+## 💡 code-bert logic
 
-- Assuming that you have a bunch of files to be analyzed under `test_files` in your present working directory, run this command - `docker run -v "$(pwd)"/test_files:/usr/src/app/test_files -it codistai/codebert run_pipeline -r test_files`
+Let's consider the following code
 
-- If you wish to analyze any other directory, simply change the mounting option in the `docker run` command (the path after `-v` the format should be `full/local/path:/usr/src/app/<mount_dir_name>`) and also mention the same `<mount_dir_name>` after the `run_pipeline` command.
+```python
+from pathlib import Path
+
+def get_file(filename):
+    """
+    opens a url
+    """
+    if not Path(filename).is_file():
+        return None
+    return open(filename, "rb")
+
+```
+1. Mine souce code to get function-docstring pairs using [tree-hugger](https://github.com/autosoft-dev/tree-hugger)
+2. Prep for functions and docstring data to fit input format expected by [codeBERT-small-v2](https://huggingface.co/codistai/codeBERT-small-v2) model.
+- **Function** - `def get file ( filename ) : indent if not path ( filename ) . is file ( ) : indent return none dedent return open ( filename , "rb" ) dedent`
+
+- **Doc String** - `opens a url`
+
+3. Run the model 
+```python
+match, confidence = model(function, docstring)
+```
+
 
 Stay tuned! 
