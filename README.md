@@ -32,7 +32,7 @@ No
 
 ## code-bert local setup 
 
-**The entire code base is built and abvailble for Python3.6+**
+**The entire code base is built and availble for Python3.6+**
 
 We have provided very easy to use CLI commands to achieve all these, and at scale. Let's go through that step by step
 
@@ -141,7 +141,7 @@ def get_file(filename):
 
 ```
 1. Mine souce code to get function-docstring pairs using [tree-hugger](https://github.com/autosoft-dev/tree-hugger)
-2. Prep for functions and docstring data to fit input format expected by [codeBERT-small-v2](https://huggingface.co/codistai/codeBERT-small-v2) model.
+2. Prep functions and docstring data to fit input format expected by [codeBERT-small-v2](https://huggingface.co/codistai/codeBERT-small-v2) model.
 - **Function** - `def get file ( filename ) : indent if not path ( filename ) . is file ( ) : indent return none dedent return open ( filename , "rb" ) dedent`
 
 - **Doc String** - `opens a url`
