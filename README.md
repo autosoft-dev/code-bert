@@ -14,7 +14,7 @@ This is [CodistAI](https://codist-ai.com/) open source version to easily use the
 [codeBERT-small-v2](https://huggingface.co/codistai/codeBERT-small-v2) is a RoBERTa model, trained using Hugging Face Transformer library and then we have fine tuned the model on the task of predicting the following - 
 
 
-## 🏆 code-bert output
+## 🏆 Output
 
 Given a function `f` and a doc string `d` a code-bert predicts whether `f` and `d` are matching or not (meaning, whether they represent the same concept or not)
 
@@ -30,7 +30,7 @@ No
 ```
 
 
-## code-bert local setup 
+## Local setup 
 
 **The entire code base is built and availble for Python3.6+**
 
@@ -66,7 +66,7 @@ optional arguments:
   -m, --show_match      Shall we show the matches? (Default false)
 ```
 
-## code-bert Docker
+## Docker setup
 
 It has been request by our users and here it is! You will not need to go through any painful setup process at all. We have Dockerized the entire thing for you. Here are the steps to use it. 
 
