@@ -2,6 +2,8 @@
 ![](build_badges/macpass.svg)
 ![](build_badges/linuxpass.svg)
 ![](build_badges/windowsfail.svg)
+[![Twitter Follow](https://img.shields.io/twitter/follow/bstevensondev.svg?style=social)](https://twitter.com/AiCodist)  
+
 # code-bert
 
 codeBERT is a package to **automatically check if your code documentation is up-to-date**. codeBERT currently works for Python code. 
